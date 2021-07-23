@@ -1,0 +1,22 @@
+
+mysql> create database payroll_services;
+Query OK, 1 row affected (0.85 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| payroll_services   |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+7 rows in set (0.02 sec)
+
+mysql> use payroll_services;
+Database changed
+mysql>
+
