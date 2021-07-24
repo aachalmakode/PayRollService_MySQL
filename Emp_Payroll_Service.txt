@@ -1,22 +1,130 @@
+8 rows in set (0.04 sec)
 
-mysql> create database payroll_services;
-Query OK, 1 row affected (0.85 sec)
+mysql> create table emp_payroll(id int unsigned not null auto_increment,    name varchar(150) not null,    salary double not null,    start date not null,    primary key (id));
+ERROR 1050 (42S01): Table 'emp_payroll' already exists
+mysql> select * from emp_payroll;
+Empty set (0.03 sec)
 
-mysql> show databases;
-+--------------------+
-| Database           |
-+--------------------+
-| information_schema |
-| mysql              |
-| payroll_services   |
-| performance_schema |
-| sakila             |
-| sys                |
-| world              |
-+--------------------+
-7 rows in set (0.02 sec)
+mysql> insert into emp_payroll (name, salary, start) values
+    -> ('Shubha', 300000, '2021-02-03'),
+    -> ('Sankar', 800000, '2021-01-01'),
+    -> ('Minal', 900000, '2021-02-02'),
+    -> ('Swati', 700000, '2021-01-014');
+Query OK, 4 rows affected (0.40 sec)
+Records: 4  Duplicates: 0  Warnings: 0
 
-mysql> use payroll_services;
-Database changed
+mysql> select * from emp_payroll;
++----+--------+--------+------------+
+| id | name   | salary | start      |
++----+--------+--------+------------+
+|  1 | Shubha | 300000 | 2021-02-03 |
+|  2 | Sankar | 800000 | 2021-01-01 |
+|  3 | Minal  | 900000 | 2021-02-02 |
+|  4 | Swati  | 700000 | 2021-01-14 |
++----+--------+--------+------------+
+4 rows in set (0.05 sec)
+
+mysql> select * from emp_payroll
+    -> where name = 'Shubha';
++----+--------+--------+------------+
+| id | name   | salary | start      |
++----+--------+--------+------------+
+|  1 | Shubha | 300000 | 2021-02-03 |
++----+--------+--------+------------+
+1 row in set (0.00 sec)
+
 mysql>
+mysql> select * from emp_payroll
+    -> where start between cast('2021-01-01' As date)
+    -> and Date(now());
++----+--------+--------+------------+
+| id | name   | salary | start      |
++----+--------+--------+------------+
+|  1 | Shubha | 300000 | 2021-02-03 |
+|  2 | Sankar | 800000 | 2021-01-01 |
+|  3 | Minal  | 900000 | 2021-02-02 |
+|  4 | Swati  | 700000 | 2021-01-14 |
++----+--------+--------+------------+
+4 rows in set (0.02 sec)
+
+mysql> Alter table emp_payroll add gender char(1) after name;
+Query OK, 0 rows affected (2.94 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> update emp_payroll set gender='F'
+    -> where name = 'minal' or name = 'swati';
+Query OK, 2 rows affected (0.12 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql>
+mysql> update emp_payroll set gender='M'
+    -> where name = 'shubha' or name = 'sankar';
+Query OK, 2 rows affected (0.07 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> #Uc7
+mysql> select salary from emp_payroll;
++--------+
+| salary |
++--------+
+| 300000 |
+| 800000 |
+| 900000 |
+| 700000 |
++--------+
+4 rows in set (0.00 sec)
+
+mysql> select sum(salary) from emp_payroll;
++-------------+
+| sum(salary) |
++-------------+
+|     2700000 |
++-------------+
+1 row in set (0.03 sec)
+
+mysql> select min(salary) from emp_payroll;
++-------------+
+| min(salary) |
++-------------+
+|      300000 |
++-------------+
+1 row in set (0.01 sec)
+
+mysql> select max(salary) from emp_payroll;
++-------------+
+| max(salary) |
++-------------+
+|      900000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select count(salary) from emp_payroll;
++---------------+
+| count(salary) |
++---------------+
+|             4 |
++---------------+
+1 row in set (0.04 sec)
+
+mysql> select avg(salary) from emp_payroll;
++-------------+
+| avg(salary) |
++-------------+
+|      675000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select sum(salary) from emp_payroll where
+    -> gender='F' group by gender;
++-------------+
+| sum(salary) |
++-------------+
+|     1600000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql>
+
+
+
 
